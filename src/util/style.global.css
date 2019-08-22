@@ -1,0 +1,7 @@
+h1 {
+    visibility: hidden;
+}
+
+.wf-active h1 {
+    visibility: visible;
+}
