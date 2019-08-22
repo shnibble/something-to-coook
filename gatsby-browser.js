@@ -1,5 +1,6 @@
 import React from 'react'
 import WebfontLoader from '@dr-kobros/react-webfont-loader'
+import { SelectionsProvider } from './src/components/contexts/selections'
 
 require('typeface-amatic-sc')
 
@@ -11,6 +12,8 @@ const config = {
 
 export const wrapRootElement = ({ element }) => (
     <WebfontLoader config={config}>
-        {element}
+        <SelectionsProvider>
+            {element}
+        </SelectionsProvider>
     </WebfontLoader>
 )

@@ -1,7 +1,7 @@
-h1 {
+h1, label, button {
     visibility: hidden;
 }
 
-.wf-active h1 {
+.wf-active h1, .wf-active label, .wf-active button {
     visibility: visible;
 }

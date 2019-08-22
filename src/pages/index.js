@@ -4,6 +4,9 @@ import styled, { ThemeProvider } from 'styled-components'
 // import theme from 'styled-theming'
 import device from '../util/device'
 import Header from '../components/header/header'
+import PrepTime from '../components/prepTime/prepTime'
+import Categories from '../components/categories/categories'
+import Tags from '../components/tags/tags'
 import '../util/style.global.css'
 
 
@@ -80,7 +83,6 @@ import '../util/style.global.css'
 
 
 const Wrapper = styled.div`
-    border: 1px dotted red;
     position: fixed;
     top: 0;
     right: 0;
@@ -91,7 +93,6 @@ const Wrapper = styled.div`
     overflow-y: auto;
 `
 const Content = styled.main`
-    border: 1px dotted red;
     flex-grow: 1;
     width: 100%;
     max-width: 1600px;
@@ -110,32 +111,6 @@ const Content = styled.main`
         grid-gap: 5px;
         padding: 1px;
     `}
-`
-const PrepTime = styled.section`
-    grid-row-start: 1;
-    grid-row-end: 4;
-    border: 3px solid lightblue;
-    border-radius: 15px;
-
-    ${device.tablet`
-        grid-row-start: 1;
-        grid-row-end: 2;
-    `}
-    ${device.mobile`
-        grid-row-start: 2;
-        grid-row-end: 3;
-    `}
-`
-const PrepTimeRadioContainer = styled.div`
-    display: grid;
-    grid-template-columns: 1fr;
-    
-    ${device.mobile`
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-    `}
-`
-const PrepTimeRadio = styled.input`
-    height: 40px;
 `
 const Results = styled.section`
     border: 3px solid lightblue;
@@ -253,72 +228,6 @@ const GetMealButton = styled.button`
         display: block;
     `}
 `
-const Categories = styled.section`
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    border: 3px solid lightblue;
-    border-radius: 15px;
-
-    ${device.tablet`
-        grid-column-start: 1;
-        grid-column-end: 3;
-    `}   
-`
-const CategoriesTitle = styled.h2`
-    font-size: 20px;
-    line-height: 34px;
-    padding: 3px;
-    margin: 5px;
-    text-align: center;
-`
-const CategoryButtonContainer = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-`
-const CategoryButton = styled.button`
-    margin: 5px;
-    padding: 15px 10px;
-    border: none;
-    background: white;
-    color: black;
-`
-const Tags = styled.section`
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    border: 3px solid lightblue;
-    border-radius: 15px;
-
-    ${device.tablet`
-        grid-column-start: 1;
-        grid-column-end: 3;
-    `}    
-    ${device.mobile`
-        grid-column-start: 1;
-        grid-column-end: 2;
-    `}
-`
-const TagsTitle = styled.h2`
-    font-size: 20px;
-    line-height: 34px;
-    padding: 3px;
-    margin: 5px;
-    text-align: center;
-`
-const TagButtonContainer = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-`
-const TagButton = styled.button`
-    margin: 5px;
-    padding: 5px;
-    border: none;
-    background: white;
-    color: black;
-`
 
 const pageTheme = {
     mode: 'light'
@@ -345,48 +254,9 @@ class IndexPage extends React.Component {
                             </ResultsPager>
                             <GetMealButton>GET MEAL</GetMealButton>
                         </Results>
-                        <PrepTime>
-                            <h2>PrepTime</h2>
-                            <PrepTimeRadioContainer>
-                                <PrepTimeRadio type='radio' name='preptime' value='Any' />
-                                <PrepTimeRadio type='radio' name='preptime' value='5-10 minutes' />
-                                <PrepTimeRadio type='radio' name='preptime' value='15-30 minutes' />
-                                <PrepTimeRadio type='radio' name='preptime' value='1 hour' />
-                                <PrepTimeRadio type='radio' name='preptime' value='2 hours' />
-                                <PrepTimeRadio type='radio' name='preptime' value='3+ hours' />
-                            </PrepTimeRadioContainer>
-                        </PrepTime>
-                        <Categories>
-                            <CategoriesTitle>Categories</CategoriesTitle>
-                            <CategoryButtonContainer>
-                                <CategoryButton>Bread</CategoryButton>
-                                <CategoryButton>Fish</CategoryButton>
-                                <CategoryButton>Meat</CategoryButton>
-                                <CategoryButton>Salad</CategoryButton>
-                                <CategoryButton>Sandwich</CategoryButton>
-                                <CategoryButton>Seafood</CategoryButton>
-                                <CategoryButton>Slow Cooker</CategoryButton>
-                                <CategoryButton>Soup</CategoryButton>
-                                <CategoryButton>Vegan</CategoryButton>
-                                <CategoryButton>Vegetarian</CategoryButton>
-                            </CategoryButtonContainer>
-                        </Categories>
-                        <Tags>
-                            <TagsTitle>Tags</TagsTitle>
-                            <TagButtonContainer>
-                                <TagButton>Dairy Free</TagButton>
-                                <TagButton>Family Sized</TagButton>
-                                <TagButton>Finger Food</TagButton>
-                                <TagButton>Low Cholesterol</TagButton>
-                                <TagButton>Low Fat</TagButton>
-                                <TagButton>Low Sodium</TagButton>
-                                <TagButton>Low Sugar</TagButton>
-                                <TagButton>Nut Free</TagButton>
-                                <TagButton>Party Food</TagButton>
-                                <TagButton>Spicy</TagButton>
-                                <TagButton>Stir-fry</TagButton>
-                            </TagButtonContainer>
-                        </Tags>
+                        <PrepTime />
+                        <Categories />
+                        <Tags />
                     </Content>
                 </Wrapper>
             </ThemeProvider>

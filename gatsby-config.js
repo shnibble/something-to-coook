@@ -27,6 +27,45 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
+    {
+        resolve: `gatsby-source-apiserver`,
+        options: {
+            typePrefix: `stc__`,
+            url: `https://api.somethingtocook.com/meta/times`,
+            method: `get`,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data: {},
+            name: `preptimes`,
+        }
+    },
+    {
+        resolve: `gatsby-source-apiserver`,
+        options: {
+            typePrefix: `stc__`,
+            url: `https://api.somethingtocook.com/meta/categories`,
+            method: `get`,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data: {},
+            name: `categories`,
+        }
+    },
+    {
+        resolve: `gatsby-source-apiserver`,
+        options: {
+            typePrefix: `stc__`,
+            url: `https://api.somethingtocook.com/meta/tags`,
+            method: `get`,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data: {},
+            name: `tags`,
+        }
+    }
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
