@@ -112,14 +112,15 @@ const ResultsPagerResult = styled.div`
     transition: all .5s ease;
     transform: scale(0.9);
     pointer-events: none;
-    opacity: 0;
-    box-shadow: 3px 2px 5px 2px rgba(0,0,0,0.5);
+    background: #fff;
+    box-shadow: 3px 2px 5px 2px rgba(0,0,0,0.1);
 
     &.active {
         opacity: 1;
         z-index: 3;
         transform: scale(1);
         pointer-events: auto;
+        box-shadow: 3px 2px 5px 2px rgba(0,0,0,0.5);
     }
 `
 const GetMealButtonContainer = styled.div`
@@ -136,44 +137,25 @@ const GetMealButtonContainer = styled.div`
     `}
 `
 
-const initialState = {
-    activeIndex: 3
-}
-
 class Results extends React.Component {
-    constructor() {
-        super()
-        this.state = initialState
-    }
-
-    pageBack = () => {
-        this.setState({ activeIndex: this.state.activeIndex - 1 })
-    }
-
-    pageForward = () => {
-        this.setState({ activeIndex: this.state.activeIndex + 1 })
-    }
 
     render() {
-        const { activeIndex } = this.state
-        const { pageBack, pageForward } = this
-
         return (
             <Container>
                 <ResultsPager>
                     <Selections.Consumer>
                         {(context) => 
                             <>
-                                <ResultsPagerButtonLeft onClick={pageBack} disabled={activeIndex <= 0}><div/></ResultsPagerButtonLeft>
+                                <ResultsPagerButtonLeft onClick={context.pageResultsBackward} disabled={context.activeMealIndex <= 0}><div/></ResultsPagerButtonLeft>
                                 <ResultsPagerResultContainer>
                                         {context.meals.map((meal, index) => (
-                                            <ResultsPagerResult style={{ left: `${((index - activeIndex) * 10) + 50}%` }} className={(index === activeIndex)?'active':null}>
+                                            <ResultsPagerResult key={`meal_${index}`} style={{ left: `${((index - context.activeMealIndex) * 10) + 50}%` }} className={(index === context.activeMealIndex)?'active':null}>
                                                 <h3>{meal.name}</h3>
                                                 <p>{meal.description}</p>
                                             </ResultsPagerResult>
                                         ))}
                                 </ResultsPagerResultContainer>
-                                <ResultsPagerButtonRight onClick={pageForward} disabled={activeIndex >= context.meals.length - 1}><div/></ResultsPagerButtonRight>
+                                <ResultsPagerButtonRight onClick={context.pageResultsForward} disabled={context.activeMealIndex >= context.meals.length - 1}><div/></ResultsPagerButtonRight>
                             </>
                         }
                     </Selections.Consumer>

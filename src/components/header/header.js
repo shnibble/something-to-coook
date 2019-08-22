@@ -47,6 +47,7 @@ const Title = styled.h1`
     padding: 0;
     font-family: 'Amatic SC', cursive;
     font-weight: bold;
+    transition: all .25s ease;
 
     ${device.tablet`
         font-size: 22px;

@@ -6,6 +6,7 @@
   "author": "Josh Patterson <joshualpatterson@gmail.com>",
   "dependencies": {
     "@dr-kobros/react-webfont-loader": "^8.0.0",
+    "axios": "^0.19.0",
     "babel-plugin-styled-components": "^1.10.6",
     "gatsby": "^2.13.66",
     "gatsby-background-image": "^0.8.5",

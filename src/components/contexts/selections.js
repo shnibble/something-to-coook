@@ -150,14 +150,17 @@ const initialState = {
     prepTime: 0,
     categories: [],
     tags: [],
-    meals: testMeals,
+    meals: [],
     mealsHistoryLimit: 10,
-    
+    activeMealIndex: 0,    
     changePrepTimeHandler: () => {},
     toggleCategoryHandler: () => {},
     isCategoryActive: () => {},
     toggleTagHandler: () => {},
-    isTagActive: () => {}
+    isTagActive: () => {},
+    addMealHandler: () => {},
+    pageResultsBackward: () => {},
+    pageResultsForward: () => {}
 }
 
 const Selections = React.createContext(initialState)
@@ -241,12 +244,26 @@ class SelectionsProvider extends React.Component {
         if (tempArray.length > this.state.mealsHistoryLimit) {
             tempArray.shift()
         }
-        this.setState({ meals: tempArray })
+        this.setState({ meals: tempArray, activeMealIndex: tempArray.length -1 })
+    }
+
+    pageResultsBackward = () => {
+        const { activeMealIndex } = this.state
+        if (activeMealIndex > 0) {
+            this.setState({ activeMealIndex: activeMealIndex - 1 })
+        }
+    }
+
+    pageResultsForward = () => {
+        const { activeMealIndex, meals } = this.state
+        if (activeMealIndex < meals.length -1 ) {
+            this.setState({ activeMealIndex: this.state.activeMealIndex + 1 })
+        }
     }
 
     render() {
         const { children } = this.props
-        const { prepTime, categories, tags, meals } = this.state
+        const { prepTime, categories, tags, meals, activeMealIndex } = this.state
 
         return (
             <Selections.Provider value={{
@@ -254,11 +271,15 @@ class SelectionsProvider extends React.Component {
                 categories,
                 tags,
                 meals,
+                activeMealIndex,
                 changePrepTimeHandler: this.changePrepTimeHandler,
                 toggleCategoryHandler: this.toggleCategoryHandler,
                 isCategoryActive: this.isCategoryActive,
                 toggleTagHandler: this.toggleTagHandler,
-                isTagActive: this.isTagActive
+                isTagActive: this.isTagActive,
+                addMealHandler: this.addMealHandler,
+                pageResultsBackward: this.pageResultsBackward,
+                pageResultsForward: this.pageResultsForward
             }}>
                 {children}
             </Selections.Provider>
