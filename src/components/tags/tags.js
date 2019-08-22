@@ -12,6 +12,12 @@ const Container = styled.section`
     grid-column-end: 3;
     border-top: 1px solid #f2f2f2;
     padding-top: 5px;
+    
+    ${device.mobile`
+        grid-column-start: 1;
+        grid-column-end: 2;
+        padding: 15px 5px;
+    `}
 `
 const Title = styled.h2`
     font-size: 18px;

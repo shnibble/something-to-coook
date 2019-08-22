@@ -8,16 +8,24 @@ const Container = styled.section`
     display: flex;
     flex-direction: row;
     align-items: center;
-    grid-column-start: 1;
-    grid-column-end: 3;
     border-top: 1px solid #f2f2f2;
     padding-top: 5px;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    
+    ${device.mobile`
+        grid-column-start: 1;
+        grid-column-end: 2;
+        padding: 15px 5px;
+    `}
 `
 const Title = styled.h2`
     font-size: 18px;
 `
 const ButtonContainer = styled.div`
-    align-self: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 `
 const Button = styled.button`
     border: none;

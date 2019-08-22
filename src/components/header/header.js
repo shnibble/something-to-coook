@@ -12,15 +12,22 @@ const Container = styled.header`
     display: flex;
     flex-direction: row;
     background: rgba(0,0,0,0.65);
+    transition: all .25s ease;
 
     ${device.tablet`
-        display: none;
+        flex-basis: 0;
+        flex-shrink: 1;
     `}
 `
 const TitleContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+
+    ${device.tablet`
+        flex-direction: row;
+        width: 100%;
+    `}
 `
 const ButtonContainer = styled.div`
     flex-grow: 1;
@@ -28,6 +35,10 @@ const ButtonContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    ${device.tablet`
+        display: none;
+    `}
 `
 const Title = styled.h1`
     color: #f88000;
@@ -36,6 +47,10 @@ const Title = styled.h1`
     padding: 0;
     font-family: 'Amatic SC', cursive;
     font-weight: bold;
+
+    ${device.tablet`
+        font-size: 22px;
+    `}
 `
 const Subtitle = styled.p`
     color: #fff;
@@ -45,6 +60,10 @@ const Subtitle = styled.p`
     font-family: Tahoma, Geneva, sans-serif;
     font-weight: normal;
     align-self: center;
+
+    ${device.tablet`
+        display: none;
+    `}
 `
 const Author = styled.div`
     flex-grow: 1;
@@ -53,6 +72,12 @@ const Author = styled.div`
     justify-content: flex-start;
     align-items: flex-end;
     padding: 10px;
+    align-self: flex-end;
+
+    ${device.tablet`
+        padding: 5px;
+        justify-content: flex-end;
+    `}
 `
 const AuthorText = styled.span`
     font-size: 16px;

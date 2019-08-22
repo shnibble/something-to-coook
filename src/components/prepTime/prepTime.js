@@ -5,9 +5,9 @@ import device from '../../util/device'
 import Selections from '../contexts/selections'
 
 const Container = styled.section`
+    display: flex;
     grid-row-start: 1;
     grid-row-end: 2;
-    display: flex;
     flex-direction: column;
     border-top: 1px solid #f2f2f2;
     padding-top: 5px;
@@ -16,6 +16,7 @@ const Container = styled.section`
         grid-row-start: 2;
         grid-row-end: 3;
         flex-direction: row;
+        align-items: center;
     `}
 `
 const Title = styled.h2`

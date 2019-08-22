@@ -9,10 +9,11 @@ const Container = styled.button`
     box-shadow: 0 0 5px 2px rgba(0,0,0,0.5);
     border: none;
     color: #fff;
-    font-size: 60px;
+    font-size: 50px;
     font-family: 'Amatic SC', cursive;
     font-weight: bold;
     cursor: pointer;
+    z-index: 5;
     transition: all .25s ease;
 
     &:focus {
