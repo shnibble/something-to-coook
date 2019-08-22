@@ -7,6 +7,7 @@ import Selections from '../contexts/selections'
 const Container = styled.section`
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     grid-column-start: 1;
     grid-column-end: 3;
@@ -21,9 +22,7 @@ const Container = styled.section`
 `
 const Title = styled.h2`
     font-size: 18px;
-`
-const ButtonContainer = styled.div`
-    align-self: center;
+    padding: 5px;
 `
 const Button = styled.button`
     border: none;
@@ -127,33 +126,31 @@ const Tags = () => {
     return (
         <Container>
             <Title>Tags</Title>
-            <ButtonContainer>
-                <Selections.Consumer>
-                    {(context) => 
-                        edges.map(({ node }) => (node.alternative_id)
-                        ?
-                        <Button 
-                            key={node.id} 
-                            id={node.id} 
-                            value={node.alternative_id} 
-                            data-name={node.name}
-                            onClick={context.toggleTagHandler.bind(this, node.alternative_id, node.name)}
-                            className={(context.isTagActive(node.alternative_id)?'active':null)}
-                        >
-                            {node.name}
-                            <ButtonIcon htmlFor={node.id}>
-                                <div>
-                                    <div/>
-                                    <div/>
-                                </div>
-                            </ButtonIcon>
-                        </Button>
-                        :
-                        null
-                        )
-                    }
-                </Selections.Consumer>
-            </ButtonContainer>
+            <Selections.Consumer>
+                {(context) => 
+                    edges.map(({ node }) => (node.alternative_id)
+                    ?
+                    <Button 
+                        key={node.id} 
+                        id={node.id} 
+                        value={node.alternative_id} 
+                        data-name={node.name}
+                        onClick={context.toggleTagHandler.bind(this, node.alternative_id, node.name)}
+                        className={(context.isTagActive(node.alternative_id)?'active':null)}
+                    >
+                        {node.name}
+                        <ButtonIcon htmlFor={node.id}>
+                            <div>
+                                <div/>
+                                <div/>
+                            </div>
+                        </ButtonIcon>
+                    </Button>
+                    :
+                    null
+                    )
+                }
+            </Selections.Consumer>
         </Container>
     )
 }

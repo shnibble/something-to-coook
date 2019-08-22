@@ -7,6 +7,7 @@ import Selections from '../contexts/selections'
 const Container = styled.section`
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     border-top: 1px solid #f2f2f2;
     padding-top: 5px;
@@ -21,11 +22,7 @@ const Container = styled.section`
 `
 const Title = styled.h2`
     font-size: 18px;
-`
-const ButtonContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    padding: 5px;
 `
 const Button = styled.button`
     border: none;
@@ -129,33 +126,31 @@ const Categories = () => {
     return (
         <Container>
             <Title>Categories</Title>
-            <ButtonContainer>
-                <Selections.Consumer>
-                    {(context) => 
-                        edges.map(({ node }) => (node.alternative_id)
-                        ?
-                        <Button 
-                            key={node.id} 
-                            id={node.id} 
-                            value={node.alternative_id} 
-                            data-name={node.name}
-                            onClick={context.toggleCategoryHandler.bind(this, node.alternative_id, node.name)}
-                            className={(context.isCategoryActive(node.alternative_id)?'active':null)}
-                        >
-                            {node.name}
-                            <ButtonIcon htmlFor={node.id}>
-                                <div>
-                                    <div/>
-                                    <div/>
-                                </div>
-                            </ButtonIcon>
-                        </Button>
-                        :
-                        null
-                        )
-                    }
-                </Selections.Consumer>
-            </ButtonContainer>
+            <Selections.Consumer>
+                {(context) => 
+                    edges.map(({ node }) => (node.alternative_id)
+                    ?
+                    <Button 
+                        key={node.id} 
+                        id={node.id} 
+                        value={node.alternative_id} 
+                        data-name={node.name}
+                        onClick={context.toggleCategoryHandler.bind(this, node.alternative_id, node.name)}
+                        className={(context.isCategoryActive(node.alternative_id)?'active':null)}
+                    >
+                        {node.name}
+                        <ButtonIcon htmlFor={node.id}>
+                            <div>
+                                <div/>
+                                <div/>
+                            </div>
+                        </ButtonIcon>
+                    </Button>
+                    :
+                    null
+                    )
+                }
+            </Selections.Consumer>
         </Container>
     )
 }

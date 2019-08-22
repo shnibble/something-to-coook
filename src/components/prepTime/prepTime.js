@@ -17,20 +17,12 @@ const Container = styled.section`
         grid-row-end: 3;
         flex-direction: row;
         align-items: center;
+        flex-wrap: wrap;
     `}
 `
 const Title = styled.h2`
     font-size: 18px;
-    text-align: center;
-`
-const RadioContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    
-    ${device.mobile`
-        flex-direction: row;
-        flex-wrap: wrap;
-    `}
+    padding: 5px;
 `
 const Radio = styled.input`
     display: none;
@@ -90,19 +82,18 @@ const PrepTime = () => {
     return (
         <Container>
             <Title>Prep Time</Title>
-            <RadioContainer>
-                <Selections.Consumer>
-                    {(context) => 
-                        <>
-                            
-                            <Radio id='radio-all-prep-times' type='radio' name='preptime' value={0} checked={context.prepTime === 0} onChange={context.changePrepTimeHandler} />
-                            <RadioLabel htmlFor='radio-all-prep-times'>Any</RadioLabel>
+            <Selections.Consumer>
+                {(context) => 
+                    <>
+                        
+                        <Radio id='radio-all-prep-times' type='radio' name='preptime' value={0} checked={context.prepTime === 0} onChange={context.changePrepTimeHandler} />
+                        <RadioLabel htmlFor='radio-all-prep-times'>Any</RadioLabel>
 
-                            {(edges.map(({ node }) => (node.alternative_id)?<React.Fragment key={node.id}><Radio id={node.id} type='radio' name='preptime' value={node.alternative_id} checked={context.prepTime === node.alternative_id} onChange={context.changePrepTimeHandler}></Radio><RadioLabel htmlFor={node.id}>{node.value}</RadioLabel></React.Fragment>:null ))}
-                        </>
-                    }
-                </Selections.Consumer>
-            </RadioContainer>
+                        {(edges.map(({ node }) => (node.alternative_id)?<React.Fragment key={node.id}><Radio id={node.id} type='radio' name='preptime' value={node.alternative_id} checked={context.prepTime === node.alternative_id} onChange={context.changePrepTimeHandler}></Radio><RadioLabel htmlFor={node.id}>{node.value}</RadioLabel></React.Fragment>:null ))}
+                    </>
+                }
+                
+            </Selections.Consumer>
         </Container>
     )
 }
