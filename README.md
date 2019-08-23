@@ -1,1 +1,1 @@
-A single-page webapp that help's cooks decide on a meal to prepare.
+A single-page webapp that helps cooks decide on a meal to prepare.
