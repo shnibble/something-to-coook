@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import axios from 'axios'
 import Selections from './contexts/selections'
 
 const Container = styled.button`
@@ -29,39 +28,12 @@ const Container = styled.button`
     }
 `
 
-class GetMealButton extends React.Component {
-    getMeal = () => {
-        const prepTime = this.context.prepTime
-        let time = null
-        if (prepTime) {
-            time = prepTime
-        }
-        const categories = this.context.categories.map(category => category.name)
-        const tags = this.context.tags.map(tag => tag.name)
-
-        axios.get('https://api.somethingtocook.com/meals', {
-            params: {
-                categories,
-                time,
-                tags,
-                limit: 1,
-                order: 'RANDOM'
-            }
-        })
-        .then(result => {
-            this.context.addMealHandler(result.data[1])
-        })
-        .catch(error => {
-            alert(`Oops! Something went wrong. Sorry about that :(\n${error}`)
-        })
-    }
-
-    render() {
-        return (
-            <Container onClick={this.getMeal}>GET MEAL</Container>
-        )
-    }
+const GetMealButton = () => {
+    return (
+        <Selections.Consumer>
+            {context => <Container onClick={context.getMealHandler}>GET MEAL</Container>}
+        </Selections.Consumer>
+    )
 }
-GetMealButton.contextType = Selections
 
 export default GetMealButton

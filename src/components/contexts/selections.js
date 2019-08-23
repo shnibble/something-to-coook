@@ -1,150 +1,6 @@
 import React from 'react'
-
-const testMeals = [
-    {
-    "name": "Bulgogi",
-    "description": "Thin, marinated slices of meat grilled, cooked in a skillet or stir-fried. This is a classic South Korean dish that goes well with a bed of rice.",
-    "prep_time": "1 hour",
-    "image": null,
-    "categories": [
-    "Meat"
-    ],
-    "tags": [
-    "Stir-fry"
-    ]
-    },
-    {
-    "name": "Burgers",
-    "description": "It's a hamburger. Made out of meat. On a bun.",
-    "prep_time": "15 - 30 minutes",
-    "image": null,
-    "categories": [
-    "Sandwich"
-    ],
-    "tags": [
-    null
-    ]
-    },
-    {
-    "name": "Chili",
-    "description": "Usually made over a long period of time in a slow cooker or in a large pot, this combination of... well really anything that looks like maybe beans and some sort of protein with a reddish hue is considered chili. Check out some recipes or simply throw a bunch of stuff in a crockpot and you could probably call it chili. Goes well with rice, corn bread, rolls, and often the source of local cooking competitions.",
-    "prep_time": "3+ hours",
-    "image": null,
-    "categories": [
-    "Meat",
-    "Slow Cooker",
-    "Vegan",
-    "Vegetarian"
-    ],
-    "tags": [
-    "Spicy"
-    ]
-    },
-    {
-    "name": "Crab Cakes",
-    "description": "Packed with ocean flavor and a texture like no other \"cake\" out there, crab cakes are usually outrageously expensive when ordered out. You can make your own in just a few minutes and they will be incredible!",
-    "prep_time": "15 - 30 minutes",
-    "image": null,
-    "categories": [
-    "Seafood"
-    ],
-    "tags": [
-    "Dairy Free",
-    "Low Sugar",
-    "Nut Free"
-    ]
-    },
-    {
-    "name": "Curry",
-    "description": "A magical and typically spicy blend of Indian spices that comes in a multitude of different dishes and styles. The world of curry is vast and full of powerful flavors.",
-    "prep_time": "3+ hours",
-    "image": null,
-    "categories": [
-    "Meat",
-    "Vegetarian"
-    ],
-    "tags": [
-    "Spicy"
-    ]
-    },
-    {
-    "name": "Enchiladas",
-    "description": "Yet another dish made with tortillas, but this time soaked in a delicious sauce and topped with mounds of cheese and baked. This dish should most definitely be served with rice and beans and a chips and guac appetizer. Fill with your choice of meat or vegetables.",
-    "prep_time": "1 hour",
-    "image": null,
-    "categories": [
-    "Meat",
-    "Vegetarian"
-    ],
-    "tags": [
-    "Family Sized",
-    "Nut Free",
-    "Spicy"
-    ]
-    },
-    {
-    "name": "Fajitas",
-    "description": "Basically a taco but disassembled, thereby making it much less effort to prepare. Can be made with chicken, steak, shrimp, fish, veggies and vegan with relative ease.",
-    "prep_time": "1 hour",
-    "image": null,
-    "categories": [
-    "Fish",
-    "Meat",
-    "Seafood",
-    "Vegan",
-    "Vegetarian"
-    ],
-    "tags": [
-    "Family Sized",
-    "Finger Food",
-    "Nut Free",
-    "Party Food",
-    "Spicy"
-    ]
-    },
-    {
-    "name": "Fried Chicken",
-    "description": "A southern tradition in the US that never gets old. There are dozens of \"traditional\" and \"classic\" recipes out there so pick one and get to deep frying!\n\nGoes well with potatoes, corn, biscuits and other southern sides.",
-    "prep_time": "1 hour",
-    "image": null,
-    "categories": [
-    "Meat"
-    ],
-    "tags": [
-    "Family Sized",
-    "Finger Food",
-    "Nut Free",
-    "Party Food"
-    ]
-    },
-    {
-    "name": "Lemon-Olive Grilled Chicken",
-    "description": "Skip the oil and butter and use olives and lemon for a simple, low fat, healthy chicken dinner. Serve with some rice or quinoa and your favorite vegetable.",
-    "prep_time": "1 hour",
-    "image": null,
-    "categories": [
-    "Meat"
-    ],
-    "tags": [
-    "Low Fat"
-    ]
-    },
-    {
-    "name": "Macaroni and Cheese",
-    "description": "Skip the boxed stuff and make your own pot of delicious mac n' cheese. Or turn it into something a little classier by topping with breadcrumbs and baking in the oven to give it a nice crust on top.\n\nWhile usually served as a side itself, macaroni and cheese is easy to elevate by adding in some protein and different flavors for some that stands on its own. With the newer dairy substitutes out there, it is entirely possible to make a vegan version without sacrificing flavor.",
-    "prep_time": "15 - 30 minutes",
-    "image": null,
-    "categories": [
-    "Vegan",
-    "Vegetarian"
-    ],
-    "tags": [
-    "Family Sized",
-    "Nut Free",
-    "Party Food"
-    ]
-    }
-]
+import axios from 'axios'
+import uuidv4 from 'uuid/v4'
 
 const initialState = {
     prepTime: 0,
@@ -159,6 +15,7 @@ const initialState = {
     toggleTagHandler: () => {},
     isTagActive: () => {},
     addMealHandler: () => {},
+    getMealHandler: () => {},
     pageResultsBackward: () => {},
     pageResultsForward: () => {}
 }
@@ -246,6 +103,39 @@ class SelectionsProvider extends React.Component {
         }
         this.setState({ meals: tempArray, activeMealIndex: tempArray.length -1 })
     }
+    
+    getMealHandler = () => {
+        const prepTime = this.state.prepTime
+        let time = null
+        if (prepTime) {
+            time = prepTime
+        }
+        const categories = this.state.categories.map(category => category.name)
+        const tags = this.state.tags.map(tag => tag.name)
+
+        axios.get('https://api.somethingtocook.com/meals', {
+            params: {
+                categories,
+                time,
+                tags,
+                limit: 1,
+                order: 'RANDOM'
+            }
+        })
+        .then(result => {
+            if (result.data[0].error) {
+                alert(`Oops! Something went wrong with the API server. Sorry about that :(\n${result.data[0].errorMessage}`)
+            } else if (result.data[0].resultsFound <= 0) {
+                alert('Sorry but no meals were found using those parameters. Try expanding your search and go again.')
+            } else {
+                result.data[1].uniqueKey = uuidv4()
+                this.addMealHandler(result.data[1])
+            }
+        })
+        .catch(error => {
+            alert(`Oops! Something went wrong with the API connection. Sorry about that :(\n${error}`)
+        })
+    }
 
     pageResultsBackward = () => {
         const { activeMealIndex } = this.state
@@ -278,6 +168,7 @@ class SelectionsProvider extends React.Component {
                 toggleTagHandler: this.toggleTagHandler,
                 isTagActive: this.isTagActive,
                 addMealHandler: this.addMealHandler,
+                getMealHandler: this.getMealHandler,
                 pageResultsBackward: this.pageResultsBackward,
                 pageResultsForward: this.pageResultsForward
             }}>

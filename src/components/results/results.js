@@ -1,8 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import device from '../../util/device'
 import Selections from '../contexts/selections'
 import GetMealButton from '../getMealButton'
+import ResultCard from './resultCard'
 
 const Container = styled.section`
     position: relative;
@@ -19,7 +21,7 @@ const ResultsPager = styled.div`
     align-items: center;
 
     ${device.tablet`
-        bottom: 90px;
+        bottom: 100px;
     `}
 `
 const ResultsPagerButtonLeft = styled.button`
@@ -102,27 +104,6 @@ const ResultsPagerResultContainer = styled.div`
     height: 100%;
     text-align: center;
 `
-const ResultsPagerResult = styled.div`
-    position: absolute;
-    left: 50%;
-    margin-left: -50%;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-    transition: all .5s ease;
-    transform: scale(0.9);
-    pointer-events: none;
-    background: #fff;
-    box-shadow: 3px 2px 5px 2px rgba(0,0,0,0.1);
-
-    &.active {
-        opacity: 1;
-        z-index: 3;
-        transform: scale(1);
-        pointer-events: auto;
-        box-shadow: 3px 2px 5px 2px rgba(0,0,0,0.5);
-    }
-`
 const GetMealButtonContainer = styled.div`
     display: none;
     position: absolute;
@@ -148,12 +129,13 @@ class Results extends React.Component {
                             <>
                                 <ResultsPagerButtonLeft onClick={context.pageResultsBackward} disabled={context.activeMealIndex <= 0}><div/></ResultsPagerButtonLeft>
                                 <ResultsPagerResultContainer>
+                                    <TransitionGroup>
                                         {context.meals.map((meal, index) => (
-                                            <ResultsPagerResult key={`meal_${index}`} style={{ left: `${((index - context.activeMealIndex) * 10) + 50}%` }} className={(index === context.activeMealIndex)?'active':null}>
-                                                <h3>{meal.name}</h3>
-                                                <p>{meal.description}</p>
-                                            </ResultsPagerResult>
+                                            <CSSTransition key={meal.uniqueKey} timeout={500} classNames='result' enter={true} exit={true}>
+                                                <ResultCard result={meal} position={(index < context.activeMealIndex)?'before':(index > context.activeMealIndex)?'after':'active'} />
+                                            </CSSTransition>
                                         ))}
+                                    </TransitionGroup>
                                 </ResultsPagerResultContainer>
                                 <ResultsPagerButtonRight onClick={context.pageResultsForward} disabled={context.activeMealIndex >= context.meals.length - 1}><div/></ResultsPagerButtonRight>
                             </>
