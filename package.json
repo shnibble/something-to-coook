@@ -1,7 +1,7 @@
 {
   "name": "something-to-cook",
   "private": true,
-  "description": "A single-page webapp that help's cooks decide on a meal to prepare.",
+  "description": "A single-page webapp that helps cooks decide on a meal to prepare.",
   "version": "0.1.0",
   "author": "Josh Patterson <joshualpatterson@gmail.com>",
   "dependencies": {

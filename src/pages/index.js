@@ -107,7 +107,7 @@ const Content = styled.main`
 
     ${device.mobile`
         grid-template-columns: 1fr;
-        grid-template-rows: minmax(250px, 1fr) auto auto auto;
+        grid-template-rows: minmax(320px, 1fr) auto auto auto;
         grid-gap: 5px;
         padding: 1px;
     `}

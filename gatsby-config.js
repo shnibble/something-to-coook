@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `Something to Cook`,
-    description: `A single-page webapp that help's cooks decide on a meal to prepare.`,
+    description: `A single-page webapp that helps cooks decide on a meal to prepare.`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -24,7 +24,7 @@ module.exports = {
         background_color: `#f88000`,
         theme_color: `#f88000`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/logo-dark.png`, // This path is relative to the root of the site.
       },
     },
     {
