@@ -117,6 +117,29 @@ const GetMealButtonContainer = styled.div`
         display: block;
     `}
 `
+const Placeholder = styled.div`
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    left: 50%;
+    margin-left: -50%;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    box-shadow: 3px 2px 5px 2px rgba(0,0,0,0.05);
+
+    & > p {
+        font-size: 48px;
+        color: #999;
+        font-family: 'Montserrat', sans-serif;
+
+        ${device.tablet`
+            font-size: 34px;
+        `}
+    }
+`
 
 class Results extends React.Component {
 
@@ -129,6 +152,12 @@ class Results extends React.Component {
                             <>
                                 <ResultsPagerButtonLeft onClick={context.pageResultsBackward} disabled={context.activeMealIndex <= 0}><div/></ResultsPagerButtonLeft>
                                 <ResultsPagerResultContainer>
+                                {(!context.meals.length)
+                                    ?
+                                    <Placeholder>
+                                        <p>Click "GET MEAL" to get started!</p>
+                                    </Placeholder>
+                                    :
                                     <TransitionGroup>
                                         {context.meals.map((meal, index) => (
                                             <CSSTransition key={meal.uniqueKey} timeout={500} classNames='result' enter={true} exit={true}>
@@ -136,6 +165,7 @@ class Results extends React.Component {
                                             </CSSTransition>
                                         ))}
                                     </TransitionGroup>
+                                    }
                                 </ResultsPagerResultContainer>
                                 <ResultsPagerButtonRight onClick={context.pageResultsForward} disabled={context.activeMealIndex >= context.meals.length - 1}><div/></ResultsPagerButtonRight>
                             </>

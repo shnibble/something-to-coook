@@ -143,7 +143,9 @@ const Footer = styled.div`
         display: block;
     }
 `
-const SearchButton = styled.button`
+const SearchButton = styled.a`
+    display: inline-block;
+    vertical-align: top;
     width: 40px;
     height: 40px;
     margin: 5px;
@@ -152,6 +154,7 @@ const SearchButton = styled.button`
     background-image: url(${SearchIconSource});
     background-size: cover;
     cursor: pointer;
+    text-decoration: none;
     transition: all .25s ease;
 
     &:focus {
@@ -239,7 +242,7 @@ class ResultCard extends React.Component {
                     <DescriptionOverlay />
                 </Description>
                 <Footer className={position}>
-                    <SearchButton title='Search for recipes' />
+                    <SearchButton href={`https://www.google.com/search?q=${result.name} recipe`} title='Search for recipes' />
                     <ViewButton title='Toggle expanded view' className={(expanded)?'expanded':null} onClick={this.toggleView} />
                 </Footer>
             </Container>
